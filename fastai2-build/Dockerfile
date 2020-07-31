@@ -31,14 +31,16 @@ RUN useradd -ms /bin/bash $DOCKER_USER
 # Assign the conda directory to that user
 RUN chown --recursive $DOCKER_USER:$DOCKER_USER /miniconda3
 
-# Tell docker that all future commands should run as the non-root user
-USER $DOCKER_USER
-
 # Copy bash scripts
 WORKDIR /home
+RUN chmod a+rwx *.sh
+
+# Tell docker that all future commands should run as the non-root user
+USER $DOCKER_USER
 COPY ./docker/fastai2-build/entrypoint.sh .
 COPY ./docker/fastai2-build/run_jupyter.sh .
-RUN chmod -R u+rwx .
+RUN chmod u+x entrypoint.sh
+RUN chmod u+x run_jupyter.sh
 
 # This ensures that the fastai2 conda env will be
 # loaded before the command specified on the
