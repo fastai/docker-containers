@@ -1,6 +1,9 @@
 #!/bin/bash
 # Build Images Manually For Testing
 
+set -e
+cd $(dirname "$0")/..
+
 export IMAGE_NAME="fastdotai/fastai2"
 export IMAGE_NAME_DEV="fastdotai/fastai2-dev"
 export VERSION="0.0.22"

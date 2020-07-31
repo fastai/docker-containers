@@ -1,5 +1,7 @@
 # :warning: This repo is a work in progress and is not ready
 
+![Build fastai2 images](https://github.com/fastai/docker-containers/workflows/Build%20fastai2%20images/badge.svg)
+
 # Docker Containers
 
 This repository builds various docker images relevant to projects in [fastai](https://github.com/fastai/) on a recurring schedule [defined in the appropriate workflow files](.github/workflows/).  Some familiarity with Docker is assumed.  For a gentle introduction to Docker, see [this blog post](https://towardsdatascience.com/how-docker-can-help-you-become-a-more-effective-data-scientist-7fc048ef91d5).

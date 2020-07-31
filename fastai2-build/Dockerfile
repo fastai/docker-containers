@@ -33,12 +33,12 @@ RUN chown --recursive $DOCKER_USER:$DOCKER_USER /miniconda3
 
 # Copy bash scripts
 WORKDIR /home
-RUN chmod a+rwx *.sh
+RUN chmod a+rwx .
 
 # Tell docker that all future commands should run as the non-root user
 USER $DOCKER_USER
-COPY ./docker/fastai2-build/entrypoint.sh .
-COPY ./docker/fastai2-build/run_jupyter.sh .
+COPY --chown=$DOCKER_USER ./docker/fastai2-build/entrypoint.sh /home/entrypoint.sh
+COPY --chown=$DOCKER_USER ./docker/fastai2-build/run_jupyter.sh /home/run_jupyter.sh
 RUN chmod u+x entrypoint.sh
 RUN chmod u+x run_jupyter.sh
 
