@@ -38,16 +38,22 @@ If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [i
 
 #### Examples:
 
+- Run an interacive shell on CPUs on the latest version of fastai2
+    >  docker run -p 8888:8888 fastdotai/fastai2 jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
+
+- Run an jupyter server on CPU on with an editable install
+    > docker run -p 8888:8888 fastdotai/fastai2-dev jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
+
+- Test that pytorch works with GPUs in your docker container
+    > docker run --gpus 1 fastdotai/fastai2 python -c "import torch;print(torch.cuda.is_available())"
+
  - Run a jupyter server with all GPUs
-    > docker run --gpus all 
+    > docker run --gpus all -p 8888:8888 fastdotai/fastai2 jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
     
 - Run a jupyter server with 2 GPUs on with an editable install
-    > docker run --gpus '"device=1,2"'
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
 
 - Run a jupyter server with 2 GPUs on with an editable install for version fastai 0.0.22
-    > docker run --gpus '"device=1,2"'
-
-- Run an interacive shell on CPUs on the latest version of fastai2
-    > docker run -it fastdotai/fastai2:latest bash
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev:0.0.22 jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
 
 </details>
