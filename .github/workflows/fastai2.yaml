@@ -44,9 +44,7 @@ jobs:
 
     - name: build and tag container
       run: |
-        DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
-        # TODO fix context path
         docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
       env:
@@ -100,9 +98,7 @@ jobs:
 
     - name: build and tag container
       run: |
-        DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
-        # TODO fix context path
         docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
       env:
