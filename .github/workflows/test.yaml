@@ -1,0 +1,18 @@
+name: CI
+on:
+  push:
+
+jobs:     
+  test:
+    - name: Copy Repository Contents
+      uses: actions/checkout@main
+      with:
+        repository: 'fastai/fastai2'
+   
+     - name: Copy Repository Contents
+      uses: actions/checkout@main
+      with:
+        path: 'docker/'
+       
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v2
