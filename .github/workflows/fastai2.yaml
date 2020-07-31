@@ -20,11 +20,6 @@ jobs:
       uses: actions/checkout@main
       with:
         path: 'docker/'  
-
-    - name: get short version of the SHA
-      run: |
-        shortSHA=$(echo "${GITHUB_SHA}" | cut -c1-12)
-        echo "::set-env name=SHORT_SHA::${shortSHA}"
   
     - uses: actions/setup-python@v2
       with:
@@ -53,7 +48,6 @@ jobs:
         docker pull ${IMAGE_NAME}:latest || true
         # TODO fix context path
         docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
-        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${SHORT_SHA} 
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
       env:
         VERSION: ${{ steps.get_version.outputs.version }}
@@ -62,7 +56,6 @@ jobs:
       run: |
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
         docker push ${IMAGE_NAME}:latest
-        docker push ${IMAGE_NAME}:${shortSHA}
         docker push ${IMAGE_NAME}:${VERSION}
       env:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -83,11 +76,6 @@ jobs:
       uses: actions/checkout@main
       with:
         path: 'docker/' 
-
-    - name: get short version of the SHA
-      run: |
-        shortSHA=$(echo "${GITHUB_SHA}" | cut -c1-12)
-        echo "::set-env name=SHORT_SHA::${shortSHA}"
 
     - uses: actions/setup-python@v2
       with:
@@ -116,7 +104,6 @@ jobs:
         docker pull ${IMAGE_NAME}:latest || true
         # TODO fix context path
         docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
-        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${SHORT_SHA} 
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
       env:
         VERSION: ${{ steps.get_version.outputs.version }}
@@ -125,7 +112,6 @@ jobs:
       run: |
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
         docker push ${IMAGE_NAME}:latest
-        docker push ${IMAGE_NAME}:${shortSHA}
         docker push ${IMAGE_NAME}:${VERSION}
       env:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}

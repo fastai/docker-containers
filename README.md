@@ -32,7 +32,6 @@ These images have the following available tags:
 
 - `latest`: the most current build
 - `version`: corresponds to the version of fastai2
-- `SHA`: corresponds to the GITHUB SHA of this repo when the image was built.
 
 #### Usage
 
