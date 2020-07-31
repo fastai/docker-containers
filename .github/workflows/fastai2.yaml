@@ -71,10 +71,7 @@ jobs:
       - name: Copy This Repository Contents
         uses: actions/checkout@main
         with:
-          path: 'docker/'
-  
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v2    
+          path: 'docker/' 
   
       - name: get short version of the SHA
         run: |
