@@ -45,7 +45,7 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install dos2unix
-        find /path -type f -print0 | xargs -0 dos2unix --
+        find . -type f -print0 | xargs -0 dos2unix --
 
     - name: build and tag container
       run: |
@@ -65,8 +65,8 @@ jobs:
         docker push ${IMAGE_NAME}:${shortSHA}
         docker push ${IMAGE_NAME}:${VERSION}
       env:
-          USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
   build-dev:
     env:
@@ -108,14 +108,14 @@ jobs:
       run: |
         sudo apt-get update -y
         sudo apt-get install dos2unix
-        find /path -type f -print0 | xargs -0 dos2unix --
+        find . -type f -print0 | xargs -0 dos2unix --
 
     - name: build and tag container
       run: |
         DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
         # TODO fix context path
-        docker build -t ${IMAGE_NAME}:latest --build-arg BUILD=dev -f docker/fastai2-build/Dockerfile .
+        docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${SHORT_SHA} 
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
       env:
