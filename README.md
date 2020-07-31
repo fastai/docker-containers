@@ -13,7 +13,8 @@ These images are built on top of [nvidia official CUDA images](https://hub.docke
 
 - **[fastdotai/fastai2](https://hub.docker.com/repository/docker/fastdotai/fastai2)**: comes installed with fastai2 and fastcore from pypi.
     
-    > Pull this image: `docker pull fastdotai/fastai2:latest`
+    Pull this image: 
+    > `docker pull fastdotai/fastai2:latest`
 
 - **[fastdotai/fastai2-dev](https://hub.docker.com/repository/docker/fastdotai/fastai2-dev)**:
 comes installed with an editable install of fastai2 and fastcore each project's GitHub repos, along with the latest release nbdev.  The editable installs for fastai and fastcore are located in `/home/docker-fastai2/fastai2` and `/home/docker-fastai2/fastcore`, respectively.
