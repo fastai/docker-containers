@@ -41,6 +41,12 @@ jobs:
         print(f"::set-output name=version::{cfg['version']}")
       shell: python
 
+    - name: clean files
+      run: |
+        apt-get update
+        apt-get install dos2unix
+        find /path -type f -print0 | xargs -0 dos2unix --
+
     - name: build and tag container
       run: |
         DOCKER_BUILDKIT=1
@@ -97,6 +103,12 @@ jobs:
         cfg = config['DEFAULT']
         print(f"::set-output name=version::{cfg['version']}")
       shell: python
+
+    - name: clean files
+      run: |
+        apt-get update
+        apt-get install dos2unix
+        find /path -type f -print0 | xargs -0 dos2unix --
 
     - name: build and tag container
       run: |
