@@ -9,7 +9,7 @@ jobs:
       with:
         repository: 'fastai/fastai2'
    
-     - name: Copy Repository Contents
+    - name: Copy This Repository Contents
       uses: actions/checkout@main
       with:
         path: 'docker/'
