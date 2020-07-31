@@ -46,7 +46,7 @@ jobs:
         DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
         # TODO fix context path
-        docker build --cache-from ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:latest --build-arg BUILDKIT_INLINE_CACHE=1 -f docker/fastai2-build/Dockerfile .
+        docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${SHORT_SHA} 
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
       env:
@@ -103,7 +103,7 @@ jobs:
         DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
         # TODO fix context path
-        docker build --cache-from ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:latest --build-arg BUILDKIT_INLINE_CACHE=1 --build-arg BUILD=dev -f docker/fastai2-build/Dockerfile .
+        docker build -t ${IMAGE_NAME}:latest --build-arg BUILD=dev -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${SHORT_SHA} 
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
       env:
