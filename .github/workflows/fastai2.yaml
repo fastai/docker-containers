@@ -1,7 +1,7 @@
 name: Build fastai2 images
 on: 
   schedule:
-    cron: '1 6 * * *'
+    - cron: '1 6 * * *'
   workflow_dispatch: #allows you to trigger manually
 
 jobs:
