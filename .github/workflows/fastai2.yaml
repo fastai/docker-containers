@@ -36,7 +36,7 @@ jobs:
         print(f"::set-output name=version::${cfg['version']}")
       shell: python
 
-    - name: build and tag production container
+    - name: build and tag container
       run: |
         DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
@@ -53,6 +53,9 @@ jobs:
         docker push ${IMAGE_NAME}:latest
         docker push ${IMAGE_NAME}:${shortSHA}
         docker push ${IMAGE_NAME}:${VERSION}
+      env:
+          USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
   build-dev:
       env:
@@ -88,7 +91,7 @@ jobs:
           print(f"::set-output name=version::${cfg['version']}")
         shell: python
   
-      - name: build and tag production container
+      - name: build and tag container
         run: |
           DOCKER_BUILDKIT=1
           docker pull ${IMAGE_NAME}:latest || true
@@ -105,3 +108,6 @@ jobs:
           docker push ${IMAGE_NAME}:latest
           docker push ${IMAGE_NAME}:${shortSHA}
           docker push ${IMAGE_NAME}:${VERSION}
+        env:
+          USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
