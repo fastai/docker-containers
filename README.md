@@ -16,7 +16,7 @@ These images are built on top of [nvidia official CUDA images](https://hub.docke
 - [fastai2-dev](https://hub.docker.com/repository/docker/fastdotai/fastai2-dev): 
 an editable install of fastai2 and fastcore, along with the latest release nbdev.  The editable installs for fastai and fastcore are located in `/home/docker-fastai2/fastai2` and `/home/docker-fastai2/fastcore`, respectively.
 
-### Tags
+#### Tags
 
 These images have the following available tags:
 
@@ -24,31 +24,31 @@ These images have the following available tags:
 - `version`: corresponds to the version of fastai2
 - `SHA`: corresponds to the GITHUB SHA of this repo when the image was built.
 
-### Usage
+#### Usage
 
 If you have an Nvdia GPU that is compatible with CUDA 10 or higher, you should [install Nvidia Docker](https://github.com/NVIDIA/nvidia-docker).  After install Nvidia Docker, you will need to use the `--gpus` flag when running the container.  See the [usage](https://github.com/NVIDIA/nvidia-docker#usage) section for more details on the various arguments available. 
 
-Examples:
+#### Examples:
 
-#### Run a jupyter server with all GPUs
+ Run a jupyter server with all GPUs
 
 ```bash
 docker run --gpus all 
 ```
 
-#### Run a jupyter server with 2 GPUs on with an editable install
+Run a jupyter server with 2 GPUs on with an editable install
 
 ```bash
 docker run --gpus '"device=1,2"'
 ```
 
-#### Run a jupyter server with 2 GPUs on with an editable install for version fastai 0.0.22
+Run a jupyter server with 2 GPUs on with an editable install for version fastai 0.0.22
 
 ```bash
 docker run --gpus '"device=1,2"'
 ```
 
-#### Run an interacive shell on CPUs on the latest version of fastai2
+Run an interacive shell on CPUs on the latest version of fastai2
 
 ```bash
 docker run -it fastdotai/fastai2:latest bash
