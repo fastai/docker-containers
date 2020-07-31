@@ -21,6 +21,8 @@ has an editable install of fastai2 and fastcore and the latest release nbdev.  T
 
     > Pull this image: `docker pull fastdotai/fastai2-dev:latest`
 
+Special thanks to [Giacomo Vianello](https://github.com/giacomov) for important contributions to this Docker image.
+
 <details>
   <summary>Expand for more details</summary>
 
