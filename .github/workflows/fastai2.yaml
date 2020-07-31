@@ -21,15 +21,16 @@ jobs:
       with:
         path: 'docker/'  
 
-    - name: see files
-      run: |
-        ls
-
     - name: get short version of the SHA
       run: |
         shortSHA=$(echo "${GITHUB_SHA}" | cut -c1-12)
         echo "::set-env name=SHORT_SHA::${shortSHA}"
   
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+
     - name: get version from settings.ini
       id: get_version
       run: |
@@ -81,9 +82,11 @@ jobs:
       run: |
         shortSHA=$(echo "${GITHUB_SHA}" | cut -c1-12)
         echo "::set-env name=SHORT_SHA::${shortSHA}"
-    - name: see files
-      run: |
-        ls
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
 
     - name: get version from settings.ini
       id: get_version
