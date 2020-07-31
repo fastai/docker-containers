@@ -33,7 +33,7 @@ jobs:
         config = ConfigParser()
         config.read('settings.ini')
         cfg = config['DEFAULT']
-        print(f"::set-output name=version::${cfg['version']}")
+        print(f"::set-output name=version::{cfg['version']}")
       shell: python
 
     - name: build and tag container
