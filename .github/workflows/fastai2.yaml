@@ -36,17 +36,19 @@ jobs:
         print(f"::set-output name=version::{cfg['version']}")
       shell: python
 
-    - name: clean files
-      run: |
-        sudo apt-get update -y
-        sudo apt-get install dos2unix
-        find . -type f -print0 | xargs -0 dos2unix --
+    # - name: clean files
+    #   run: |
+    #     sudo apt-get update -y
+    #     sudo apt-get install dos2unix
+    #     find . -type f -print0 | xargs -0 dos2unix --
 
     - name: build and tag container
       run: |
         docker pull ${IMAGE_NAME}:latest || true
         docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
+        DATE_TAG=`date +%F`
+        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
       env:
         VERSION: ${{ steps.get_version.outputs.version }}
 
@@ -55,6 +57,7 @@ jobs:
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
         docker push ${IMAGE_NAME}:latest
         docker push ${IMAGE_NAME}:${VERSION}
+        docker push ${IMAGE_NAME}:${DATE_TAG}
       env:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
@@ -101,6 +104,8 @@ jobs:
         docker pull ${IMAGE_NAME}:latest || true
         docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
+        DATE_TAG=`date +%F`
+        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
       env:
         VERSION: ${{ steps.get_version.outputs.version }}
 
@@ -109,6 +114,7 @@ jobs:
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
         docker push ${IMAGE_NAME}:latest
         docker push ${IMAGE_NAME}:${VERSION}
+        docker push ${IMAGE_NAME}:${DATE_TAG}
       env:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
