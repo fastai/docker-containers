@@ -77,6 +77,10 @@ jobs:
         run: |
           shortSHA=$(echo "${GITHUB_SHA}" | cut -c1-12)
           echo "::set-env name=SHORT_SHA::${shortSHA}"
+
+      - name: see files
+        run: |
+          ls
     
       - name: get version from settings.ini
         id: get_version
