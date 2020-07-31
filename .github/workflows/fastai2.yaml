@@ -43,8 +43,8 @@ jobs:
 
     - name: clean files
       run: |
-        apt-get update
-        apt-get install dos2unix
+        sudo apt-get update -y
+        sudo apt-get install dos2unix
         find /path -type f -print0 | xargs -0 dos2unix --
 
     - name: build and tag container
@@ -106,8 +106,8 @@ jobs:
 
     - name: clean files
       run: |
-        apt-get update
-        apt-get install dos2unix
+        sudo apt-get update -y
+        sudo apt-get install dos2unix
         find /path -type f -print0 | xargs -0 dos2unix --
 
     - name: build and tag container
