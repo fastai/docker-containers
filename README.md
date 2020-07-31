@@ -2,19 +2,19 @@
 
 # Docker Containers
 
-This repository builds various docker images relevant to projects in [fastai](https://github.com/fastai/) on a recurring schedule [defined in the appropriate workflow files](.github/workflows/).
+This repository builds various docker images relevant to projects in [fastai](https://github.com/fastai/) on a recurring schedule [defined in the appropriate workflow files](.github/workflows/).  Some familiarity with Docker is assumed.  For a gentle introduction to Docker, see [this blog post](https://towardsdatascience.com/how-docker-can-help-you-become-a-more-effective-data-scientist-7fc048ef91d5).
 
 
-# List of Projects And Associated Docker Images
+# List of Dockerized Projects
 
 ## [fastai2](https://github.com/fastai/fastai2)
 
 These images are built on top of [nvidia official CUDA images](https://hub.docker.com/r/nvidia/cuda/).  You can see the version of CUDA by looking at [the Dockerfile](fastai2-build/Dockerfile).  Furthermore, fastai2 is installed with [miniconda](https://docs.conda.io/en/latest/miniconda.html), as using conda is the [recommended way](https://github.com/fastai/fastai2#installing) to install fastai2 dependencies.
 
-- [fastai2](https://hub.docker.com/repository/docker/fastdotai/fastai2).  This installs fastai2 and fastcore from pypi.
+- [fastai2](https://hub.docker.com/repository/docker/fastdotai/fastai2): comes installed with fastai2 and fastcore from pypi.
 
 - [fastai2-dev](https://hub.docker.com/repository/docker/fastdotai/fastai2-dev): 
-an editable install of fastai2 and fastcore, along with the latest release nbdev.  The editable installs for fastai and fastcore are located in `/home/docker-fastai2/fastai2` and `/home/docker-fastai2/fastcore`, respectively.
+an editable install of fastai2 and fastcore each project's GitHub repos, along with the latest release nbdev.  The editable installs for fastai and fastcore are located in `/home/docker-fastai2/fastai2` and `/home/docker-fastai2/fastcore`, respectively.
 
 <details>
   <summary>Expand for more details</summary>
