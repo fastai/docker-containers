@@ -4,6 +4,8 @@ on:
 
 jobs:     
   test:
+    runs-on: ubuntu-latest
+    steps:
     - name: Copy Repository Contents
       uses: actions/checkout@main
       with:
