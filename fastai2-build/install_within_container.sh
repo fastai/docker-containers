@@ -2,7 +2,7 @@
 set -e
 set -x
 
-cd /root
+cd /home
 
 # Install minimal packages needed
 apt update
@@ -19,10 +19,10 @@ export PATH=/miniconda3/bin:${PATH}
 # with all the dependencies needed by fastai2
 
 # Get the latest fastcore
-cd /root/docker-fastai2/
+cd /home/docker-fastai2/
 git clone https://github.com/fastai/fastcore
 
-cd /root/docker-fastai2/fastai2
+cd /home/docker-fastai2/fastai2
 conda env create -f environment.yml
 source activate fastai2
 conda install -y jupyter jupyterlab nodejs ipympl

@@ -45,8 +45,67 @@ jobs:
         DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
         # TODO fix context path
-        docker build --cache-from ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:latest --build-arg BUILDKIT_INLINE_CACHE=1 -f docker/Dockerfile .
+        docker build --cache-from ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:latest --build-arg BUILDKIT_INLINE_CACHE=1 -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${SHORT_SHA} 
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
       env:
         VERSION: ${{ steps.get_version.outputs.version }}
+
+    - name: push images to DockerHub
+      run: |
+        echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
+        docker push ${IMAGE_NAME}:latest
+        docker push ${IMAGE_NAME}:${shortSHA}
+        docker push ${IMAGE_NAME}:${VERSION}
+
+  build-dev:
+      env:
+        IMAGE_NAME: "fastdotai/fastai2-dev"
+      runs-on: ubuntu-latest
+      steps:
+  
+      - name: Copy Repository Contents
+        uses: actions/checkout@main
+        with:
+          repository: 'fastai/fastai2'
+     
+      - name: Copy This Repository Contents
+        uses: actions/checkout@main
+        with:
+          path: 'docker/'
+  
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v2    
+  
+      - name: get short version of the SHA
+        run: |
+          shortSHA=$(echo "${GITHUB_SHA}" | cut -c1-12)
+          echo "::set-env name=SHORT_SHA::${shortSHA}"
+    
+      - name: get version from settings.ini
+        id: get_version
+        run: |
+          from configparser import ConfigParser
+          config = ConfigParser()
+          config.read('settings.ini')
+          cfg = config['DEFAULT']
+          print(f"::set-output name=version::${cfg['version']}")
+        shell: python
+  
+      - name: build and tag production container
+        run: |
+          DOCKER_BUILDKIT=1
+          docker pull ${IMAGE_NAME}:latest || true
+          # TODO fix context path
+          docker build --cache-from ${IMAGE_NAME}:latest -t ${IMAGE_NAME}:latest --build-arg BUILDKIT_INLINE_CACHE=1 --build-arg BUILD=dev -f docker/fastai2-build/Dockerfile .
+          docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${SHORT_SHA} 
+          docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
+        env:
+          VERSION: ${{ steps.get_version.outputs.version }}
+  
+      - name: push images to DockerHub
+        run: |
+          echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
+          docker push ${IMAGE_NAME}:latest
+          docker push ${IMAGE_NAME}:${shortSHA}
+          docker push ${IMAGE_NAME}:${VERSION}
