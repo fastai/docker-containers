@@ -16,6 +16,9 @@ These images are built on top of [nvidia official CUDA images](https://hub.docke
 - [fastai2-dev](https://hub.docker.com/repository/docker/fastdotai/fastai2-dev): 
 an editable install of fastai2 and fastcore, along with the latest release nbdev.  The editable installs for fastai and fastcore are located in `/home/docker-fastai2/fastai2` and `/home/docker-fastai2/fastcore`, respectively.
 
+<details>
+  <summary>Expand for more details</summary>
+
 #### Tags
 
 These images have the following available tags:
@@ -53,3 +56,4 @@ Run an interacive shell on CPUs on the latest version of fastai2
 ```bash
 docker run -it fastdotai/fastai2:latest bash
 ```
+</details>
