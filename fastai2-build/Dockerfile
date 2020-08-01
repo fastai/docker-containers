@@ -1,11 +1,7 @@
-FROM nvidia/cuda:10.2-base
+FROM nvidia/cuda:10.2-base as build_stage
 
-# build argument: if it's not passed, default to fastai2
 ARG DOCKER_USER=fastai2-user
-
-# If BUILD=dev an editable install of fastai and fastcore will be installed instead
 ARG BUILD=prod
-# For Build Caching
 ARG BUILDKIT_INLINE_CACHE=1
 
 # Copy code from repo to container
@@ -24,14 +20,21 @@ COPY ./docker/fastai2-build/install_within_container.sh /root/install_within_con
 # Run installer
 RUN cd /root && chmod u+x install_within_container.sh && ./install_within_container.sh && rm -rf install_within_container.sh
 
-# Create a group and user. This will allow us to avoid running things as
-# root, which is dangerous
+# Create a group and user and assign the conda directory to that user
 RUN useradd -ms /bin/bash $DOCKER_USER
-
-# Assign the conda directory to that user
 RUN chown --recursive $DOCKER_USER:$DOCKER_USER /miniconda3
 
-# Copy bash scripts
+# Stage 2 of mutli-part build
+FROM nvidia/cuda:10.2-base
+ARG DOCKER_USER=fastai2-user
+ARG BUILD=prod
+ARG BUILDKIT_INLINE_CACHE=1
+
+# Create a non-root user
+RUN useradd -ms /bin/bash $DOCKER_USER
+COPY --chown=$DOCKER_USER --from=build_stage /miniconda3 /miniconda3
+
+# Set permissions
 WORKDIR /home
 RUN chmod a+rwx .
 
@@ -42,7 +45,5 @@ COPY --chown=$DOCKER_USER ./docker/fastai2-build/run_jupyter.sh /home/run_jupyte
 RUN chmod u+x entrypoint.sh
 RUN chmod u+x run_jupyter.sh
 
-# This ensures that the fastai2 conda env will be
-# loaded before the command specified on the
-# command line is executed
+# Load the fastai2 conda environment before executing any commands
 ENTRYPOINT ["/bin/bash", "/home/entrypoint.sh"]

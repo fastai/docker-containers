@@ -2,19 +2,6 @@
 set -e
 set -x
 
-# cd /home
-
-# Install minimal packages needed
-# apt update
-# apt install -y git wget
-
-# Install Miniconda
-
-# wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-# chmod u+x Miniconda3-latest-Linux-x86_64.sh
-# ./Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda3
-# export PATH=/miniconda3/bin:${PATH}
-
 # Clone and install fastai2 and create fastai2 conda env
 # with all the dependencies needed by fastai2
 
@@ -23,12 +10,10 @@ cd /home/docker-fastai2/
 git clone https://github.com/fastai/fastcore
 
 cd /home/docker-fastai2/fastai2
-# conda env create -f environment.yml
 source activate fastai2
 conda install -y jupyter jupyterlab nodejs ipympl
 # Instruct pip not to use any caching, so the image stays small
 pip config set global.cache-dir false
-
 
 if [[ $BUILD == "prod" ]]; then
     echo "Excuting a production build."

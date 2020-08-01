@@ -39,9 +39,9 @@ jobs:
 
         assert os.getenv('BUILD_TYPE') in ['prod', 'dev'], "BUILD_TYPE must be either 'prod' or 'dev'"
         if os.getenv('BUILD_TYPE') == 'dev':
-            image_name = 'fastai/fastai2-dev'
+            image_name = 'fastdotai/fastai2-dev'
         else:
-            image_name = 'fastai/fastai2'
+            image_name = 'fastdotai/fastai2'
         print(f"::set-output name=image_name::{image_name}")
       shell: python
       env:
@@ -55,8 +55,9 @@ jobs:
 
     - name: build and tag container
       run: |
+        export DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
-        docker build --build-arg BUILD=${BUILD_TYPE} -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
+        docker build --cache-from ${IMAGE_NAME}:latest --build-arg BUILD=${BUILD_TYPE} --build-arg BUILDKIT_INLINE_CACHE=1 -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
       env:
@@ -65,7 +66,7 @@ jobs:
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         BUILD_TYPE: ${{ matrix.build_type }}
 
-    - name: push latest
+    - name: push images
       run: |
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
         docker push ${IMAGE_NAME}:latest
