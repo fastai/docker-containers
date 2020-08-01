@@ -5,7 +5,7 @@ on:
   workflow_dispatch: #allows you to trigger manually
 
 jobs:
-  build-prod:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
