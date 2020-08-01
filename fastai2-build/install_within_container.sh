@@ -7,7 +7,7 @@ set -x
 
 # Get the latest fastcore
 cd /home/docker-fastai2/
-git clone https://github.com/fastai/fastcore
+git clone --depth 1 https://github.com/fastai/fastcore
 
 cd /home/docker-fastai2/fastai2
 source activate fastai2
@@ -27,7 +27,10 @@ elif [[ $BUILD == "dev" ]]; then
     # editable installs of fastai2 and fastcore
     echo "Excuting a development with editable installs."
     pip install -e ".[dev]"
-    cd ../fastcore && pip install -e ".[dev]";
+    cd /home/docker-fastai2/fastcore && pip install -e ".[dev]";
+    cd /home/docker-fastai2/
+    # get the fastai docs for the dev version
+    git clone --depth 1 https://github.com/fastai/fastai-docs.git
     pip install nbdev
 fi
 
