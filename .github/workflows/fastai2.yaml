@@ -6,9 +6,10 @@ on:
 
 jobs:
   build-prod:
-    env:
-      IMAGE_NAME: "fastdotai/fastai2"
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_type: [prod, dev]
     steps:
 
     - name: Copy Repository Contents
@@ -26,15 +27,25 @@ jobs:
         python-version: '3.8'
         architecture: 'x64'
 
-    - name: get version from settings.ini
-      id: get_version
+    - name: get version from settings.ini and create image name
+      id: get_variables
       run: |
         from configparser import ConfigParser
+        import os
         config = ConfigParser()
         config.read('settings.ini')
         cfg = config['DEFAULT']
         print(f"::set-output name=version::{cfg['version']}")
+
+        assert os.getenv('BUILD_TYPE') in ['prod', 'dev'], "BUILD_TYPE must be either 'prod' or 'dev'"
+        if os.getenv('BUILD_TYPE') == 'dev':
+            image_name = 'fastai/fastai2-dev'
+        else:
+            image_name = 'fastai/fastai2'
+        print(f"::set-output name=image_name::{image_name}")
       shell: python
+      env:
+        BUILD_TYPE: ${{ matrix.build_type }}
 
     - name: get date
       id: get_date
@@ -45,12 +56,14 @@ jobs:
     - name: build and tag container
       run: |
         docker pull ${IMAGE_NAME}:latest || true
-        docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
+        docker build --build-arg BUILD=${BUILD_TYPE} -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
       env:
-        VERSION: ${{ steps.get_version.outputs.version }}
+        VERSION: ${{ steps.get_variables.outputs.version }}
         DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
+        IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
+        BUILD_TYPE: ${{ matrix.build_type }}
 
     - name: push latest
       run: |
@@ -61,65 +74,65 @@ jobs:
       env:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        VERSION: ${{ steps.get_version.outputs.version }}
+        VERSION: ${{ steps.get_variables.outputs.version }}
         DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
+        IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
 
-  build-dev:
-    env:
-      IMAGE_NAME: "fastdotai/fastai2-dev"
-    runs-on: ubuntu-latest
-    steps:
+#   build-dev:
+#     env:
+#       IMAGE_NAME: "fastdotai/fastai2-dev"
+#     runs-on: ubuntu-latest
+#     steps:
 
-    - name: Copy Repository Contents
-      uses: actions/checkout@main
-      with:
-        repository: 'fastai/fastai2'
+#     - name: Copy Repository Contents
+#       uses: actions/checkout@main
+#       with:
+#         repository: 'fastai/fastai2'
     
-    - name: Copy This Repository Contents
-      uses: actions/checkout@main
-      with:
-        path: 'docker/' 
+#     - name: Copy This Repository Contents
+#       uses: actions/checkout@main
+#       with:
+#         path: 'docker/' 
 
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.8'
-        architecture: 'x64'
+#     - uses: actions/setup-python@v2
+#       with:
+#         python-version: '3.8'
+#         architecture: 'x64'
 
-    - name: get version from settings.ini
-      id: get_version
-      run: |
-        from configparser import ConfigParser
-        config = ConfigParser()
-        config.read('settings.ini')
-        cfg = config['DEFAULT']
-        print(f"::set-output name=version::{cfg['version']}")
-      shell: python
+#     - name: get version from settings.ini
+#       id: get_version
+#       run: |
+#         from configparser import ConfigParser
+#         config = ConfigParser()
+#         config.read('settings.ini')
+#         cfg = config['DEFAULT']
+#         print(f"::set-output name=version::{cfg['version']}")
+#       shell: python
 
-    - name: get date
-      id: get_date
-      run: |
-        DATE_TAG=`date +%F`
-        echo "::set-output name=date_tag::{DATE_TAG}"
-        
-    - name: build and tag container
-      run: |
-        docker pull ${IMAGE_NAME}:latest || true
-        docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
-        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
-        DATE_TAG=`date +%F`
-        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
-      env:
-        VERSION: ${{ steps.get_version.outputs.version }}
-        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
+#     - name: get date
+#       id: get_date
+#       run: |
+#         DATE_TAG=`date +%F`
+#         echo "::set-output name=date_tag::{DATE_TAG}"
 
-    - name: push images to DockerHub
-      run: |
-        echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
-        docker push ${IMAGE_NAME}:latest
-        docker push ${IMAGE_NAME}:${VERSION}
-        docker push ${IMAGE_NAME}:${DATE_TAG}
-      env:
-        USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        VERSION: ${{ steps.get_version.outputs.version }}
-        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
+#     - name: build and tag container
+#       run: |
+#         docker pull ${IMAGE_NAME}:latest || true
+#         docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
+#         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
+#         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
+#       env:
+#         VERSION: ${{ steps.get_version.outputs.version }}
+#         DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
+
+#     - name: push images to DockerHub
+#       run: |
+#         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
+#         docker push ${IMAGE_NAME}:latest
+#         docker push ${IMAGE_NAME}:${VERSION}
+#         docker push ${IMAGE_NAME}:${DATE_TAG}
+#       env:
+#         USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#         VERSION: ${{ steps.get_version.outputs.version }}
+#         DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
