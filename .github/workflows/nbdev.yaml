@@ -17,6 +17,12 @@ jobs:
         python-version: '3.8'
         architecture: 'x64'
 
+    - name: get date
+      id: get_date
+      run: |
+        DATE_TAG=`date +%F`
+        echo "::set-output name=date_tag::${DATE_TAG}"
+
     - name: Install repo2docker
       run: python3 -m pip install jupyter-repo2docker
 
@@ -24,6 +30,20 @@ jobs:
       uses: actions/checkout@main
       with:
         repository: 'fastai/nbdev'
+
+    - name: get version from settings.ini
+      id: get_variables
+      run: |
+        from configparser import ConfigParser
+        import os
+        config = ConfigParser()
+        config.read('settings.ini')
+        cfg = config['DEFAULT']
+        print(f"::set-output name=version::{cfg['version']}")
+        assert os.getenv('BUILD_TYPE') in ['prod', 'dev'], "BUILD_TYPE must be either 'prod' or 'dev'"
+      shell: python
+      env:
+        BUILD_TYPE: ${{ matrix.build_type }}       
 
     - name: DockerHub Login
       run: |
@@ -34,8 +54,26 @@ jobs:
 
     - name: Build Prod Container
       if: matrix.build_type == 'prod'
-      run: repo2docker --image-name fastdotai/nbdev --push --no-run --user-id 1000 ${PWD}
-    
+      run: |
+        IMAGE_NAME="fastdotai/nbdev" 
+        echo "current directory: ${PWD}"
+        echo "::set-env name=IMAGE_NAME::${IMAGE_NAME}"
+        repo2docker --image-name "${IMAGE_NAME}:latest" --push --no-run --user-id 1000 ${PWD}
+
     - name: Build Dev Container (with editable install)
       if: matrix.build_type == 'dev'
-      run: repo2docker --image-name fastdotai/nbdev-dev --editable --push --no-run --user-id 1000 ${PWD}
+      run: |
+        IMAGE_NAME="fastdotai/nbdev-dev"
+        echo "current directory: ${PWD}"
+        echo "::set-env name=IMAGE_NAME::${IMAGE_NAME}" 
+        repo2docker --image-name "${IMAGE_NAME}:latest" --editable --push --no-run --user-id 1000 ${PWD}
+
+    - name: push tags
+      run: |
+        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
+        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
+        docker push ${IMAGE_NAME}:${VERSION}
+        docker push ${IMAGE_NAME}:${DATE_TAG}
+      env:
+        VERSION: ${{ steps.get_variables.outputs.version }}
+        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
