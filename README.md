@@ -129,7 +129,7 @@ There are two common ways to utilize this container:
 - Run `nbdev_test_nbs` (in this case we are passing the -h flag to see help)
     > docker run fastdotai/nbdev nbdev_test_nbs -h
 
-- Run `nbdev_test_nbs` on the notebooks in your local directory that you mount into the container.  We set the working directory in the container to `/home/runner/my_data` where your local files are located.
+- Run `nbdev_test_nbs` on notebooks in your local directory that you mount into the container.  We set the working directory in the container to `/home/runner/my_data` where your local files are located.
     >  docker run -w /home/runner/my_data -v $PWD:/home/runner/my_data fastdotai/nbdev nbdev_test_nbs
 
 ---
