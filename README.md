@@ -1,6 +1,12 @@
 # Docker Containers
 
-This repository builds various docker images relevant to projects in [fastai](https://github.com/fastai/) on a recurring schedule [defined in this repo's workflow files](.github/workflows/).  Some familiarity with Docker is assumed.  For a gentle introduction to Docker, see [this blog post](https://towardsdatascience.com/how-docker-can-help-you-become-a-more-effective-data-scientist-7fc048ef91d5).
+This repository builds various docker images relevant to projects in [fastai](https://github.com/fastai/) on a recurring schedule [defined in this repo's workflow files](.github/workflows/). 
+
+# Intended Audience
+
+These Docker containers are useful for production, testing and online services or to facilitate usecases that require reproduceability and portability.  Some familiarity with Docker is assumed before using these containers.  For a gentle introduction to Docker, see [this blog post](https://towardsdatascience.com/how-docker-can-help-you-become-a-more-effective-data-scientist-7fc048ef91d5).
+
+**For students taking the fast.ai courses, or for prototyping and development, fast.ai recommends using [Anaconda](https://www.anaconda.com/) in your home directory, instead of these containers.** Please consult the appropriate repository for installation instructions.
 
 # Prerequisites
 
@@ -27,12 +33,10 @@ has an editable install of fastai2 and fastcore and the latest release nbdev.  T
 
 Special thanks to [Giacomo Vianello](https://github.com/giacomov) for important contributions to this Docker image.
 
-<details>
-  <summary>Expand for more details</summary>
 
 #### Tags
 
-These following tags are available:
+The following tags are available:
 
 - `latest`: the most current build.
     > example: `docker pull fastdotai/fastai2:latest`
@@ -71,8 +75,6 @@ If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [i
 
 - Run a jupyter server with 2 GPUs on with an editable install for version fastai `0.0.22`:
     > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev:0.0.22 jupyter notebook --ip=0.0.0.0 --no-browser --port=8888
-
-</details>
 
 ---
 
