@@ -52,7 +52,10 @@ If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [i
 #### Examples:
 
 - Run an interacive shell on CPUs (for example your laptop) on the latest version of fastai2:
-    >  docker run -p 8888:8888 fastdotai/fastai2 jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
+    >  docker run -it fastdotai/fastai2 bash
+
+- Run an interactive shell with `fastdotai/fastai2-dev` as the root user (which is helpful if you need to install things on the operating system).  Additionally, mount the current directory in your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag).
+   > docker run -it -v $PWD:/home/fastai-user -w /home/fastai-user --user root fastdotai/fastai2-dev bash
 
 - Run an jupyter server on CPU on with an editable install
     > docker run -p 8888:8888 fastdotai/fastai2-dev jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
@@ -70,3 +73,15 @@ If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [i
     > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev:0.0.22 jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
 
 </details>
+
+---
+
+## Miscelleanous Docker Tips
+
+- Save the state of a running container by first finding the Container ID of your running container with `docker ps`.  After you have located the relevant ID, you can use [docker commit](https://docs.docker.com/engine/reference/commandline/commit/) to save the state of the container for later use.
+
+- Mount a local directory into your Docker image so that you can access files that are genearated when you exit your container with the `-v` flag.
+
+- Read [this blog post](https://towardsdatascience.com/how-docker-can-help-you-become-a-more-effective-data-scientist-7fc048ef91d5).
+
+- Read [this book](https://www.manning.com/books/docker-in-action-second-edition) to dive deeper into Docker.
