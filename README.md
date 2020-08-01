@@ -115,7 +115,7 @@ There are two common ways to utilize this container:
 
         - Access JupyterLab: append `/lab` to the end of the URL like so:
             > `http(s)://<server:port>/lab`
-        - Switch back to the classic notebook, add /tree to the URL like so:
+        - Switch back to the classic notebook, add `/tree` to the URL like so:
             > `http(s)://<server:port>/tree`
         - You can launch nteract from within a user session by replacing /tree with /nteract at the end of a notebook server’s URL like so:
             > `http(s)://<server:port>/nteract`
