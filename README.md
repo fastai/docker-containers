@@ -39,7 +39,7 @@ The following tags are available for all images:
     > example: `docker pull fastdotai/fastai2:0.0.22`
 
 - `YYYY-MM-DD`: corresponds to the date the container was built.
-    > example: `docker pull fastdotai/fasta2:2020-07-31`
+    > example: `docker pull fastdotai/fastai2:2020-07-31`
 
 You can filter for the available tags by navigating to the Tags tab on the appopriate [DockerHub repository](https://hub.docker.com/u/fastdotai) that corresponds to the container you are using.
 
