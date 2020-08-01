@@ -36,23 +36,23 @@ jobs:
         print(f"::set-output name=version::{cfg['version']}")
       shell: python
 
-    # - name: clean files
-    #   run: |
-    #     sudo apt-get update -y
-    #     sudo apt-get install dos2unix
-    #     find . -type f -print0 | xargs -0 dos2unix --
+    - name: get date
+      id: get_date
+      run: |
+        DATE_TAG=`date +%F`
+        echo "::set-output name=date_tag::{DATE_TAG}"
 
     - name: build and tag container
       run: |
         docker pull ${IMAGE_NAME}:latest || true
         docker build -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
-        DATE_TAG=`date +%F`
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
       env:
         VERSION: ${{ steps.get_version.outputs.version }}
+        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
 
-    - name: push images to DockerHub
+    - name: push latest
       run: |
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
         docker push ${IMAGE_NAME}:latest
@@ -61,6 +61,8 @@ jobs:
       env:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        VERSION: ${{ steps.get_version.outputs.version }}
+        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
 
   build-dev:
     env:
@@ -93,12 +95,12 @@ jobs:
         print(f"::set-output name=version::{cfg['version']}")
       shell: python
 
-    - name: clean files
+    - name: get date
+      id: get_date
       run: |
-        sudo apt-get update -y
-        sudo apt-get install dos2unix
-        find . -type f -print0 | xargs -0 dos2unix --
-
+        DATE_TAG=`date +%F`
+        echo "::set-output name=date_tag::{DATE_TAG}"
+        
     - name: build and tag container
       run: |
         docker pull ${IMAGE_NAME}:latest || true
@@ -108,6 +110,7 @@ jobs:
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
       env:
         VERSION: ${{ steps.get_version.outputs.version }}
+        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
 
     - name: push images to DockerHub
       run: |
@@ -118,3 +121,5 @@ jobs:
       env:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        VERSION: ${{ steps.get_version.outputs.version }}
+        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
