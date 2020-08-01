@@ -45,7 +45,7 @@ These following tags are available:
 
 You can filter for the available tags by navigating to the Tags tab on the DockerHub page for either the [fastai2](https://hub.docker.com/repository/docker/fastdotai/fastai2/tags?page=1) or [fastai2-dev](https://hub.docker.com/repository/docker/fastdotai/fastai2-dev/tags?page=1) repos.
 
-#### Usage
+### Usage
 
 If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [install Nvidia Docker](https://github.com/NVIDIA/nvidia-docker).  Afterwards, you will need to use the `--gpus` flag when running the container.  See the [usage](https://github.com/NVIDIA/nvidia-docker#usage) section for more details on the various arguments available. 
 
@@ -54,7 +54,7 @@ If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [i
 - Run an interacive shell on CPUs (for example your laptop) on the latest version of fastai2:
     >  docker run -it fastdotai/fastai2 bash
 
-- Run an interactive shell with `fastdotai/fastai2-dev` as the root user (with `--user root`) (which is helpful if you need to install things on the operating system).  Additionally, mount the current directory on your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag).
+- Run an interactive shell with `fastdotai/fastai2-dev` as the root user (with `--user root`), which can be helpful for installing various things.  Additionally, mount the current directory from your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag) in the container.
    > docker run -it -v $PWD:/home/fastai-user -w /home/fastai-user --user root fastdotai/fastai2-dev bash
 
 - Run an jupyter server on CPU on with an editable install
