@@ -28,9 +28,8 @@ elif [[ $BUILD == "dev" ]]; then
     echo "Excuting a development with editable installs."
     pip install -e ".[dev]"
     cd /home/docker-fastai2/fastcore && pip install -e ".[dev]";
-    cd /home/docker-fastai2/
     # get the fastai docs for the dev version
-    git clone --depth 1 https://github.com/fastai/fastai-docs.git
+    cd /home/docker-fastai2/ && git clone --depth 1 https://github.com/fastai/fastai-docs.git;
     pip install nbdev
 fi
 
