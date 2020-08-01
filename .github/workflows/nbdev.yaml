@@ -1,0 +1,41 @@
+name: Build nbdev images
+on: 
+  schedule:
+    - cron: '1 6 * * *'
+  workflow_dispatch: #allows you to trigger manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        build_type: [prod, dev]
+    steps:
+
+    - uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+        architecture: 'x64'
+
+    - name: Install repo2docker
+      run: python3 -m pip install jupyter-repo2docker
+
+    - name: Copy Repository Contents
+      uses: actions/checkout@main
+      with:
+        repository: 'fastai/nbdev'
+
+    - name: DockerHub Login
+      run: |
+        echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
+      env:
+        USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Prod Container
+      if: matrix.build_type == 'prod'
+      run: repo2docker --image-name fastdotai/nbdev --push --no-run --user-id 1000 ${PWD}
+    
+    - name: Build Dev Container (with editable install)
+      if: matrix.build_type == 'dev'
+      run: repo2docker --image-name fastdotai/nbdev-dev --editable --push --no-run --user-id 1000 ${PWD}
