@@ -54,23 +54,23 @@ If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [i
 - Run an interacive shell on CPUs (for example your laptop) on the latest version of fastai2:
     >  docker run -it fastdotai/fastai2 bash
 
-- Run an interactive shell with `fastdotai/fastai2-dev` as the root user (which is helpful if you need to install things on the operating system).  Additionally, mount the current directory on your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag).
+- Run an interactive shell with `fastdotai/fastai2-dev` as the root user (with `--user root`) (which is helpful if you need to install things on the operating system).  Additionally, mount the current directory on your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag).
    > docker run -it -v $PWD:/home/fastai-user -w /home/fastai-user --user root fastdotai/fastai2-dev bash
 
 - Run an jupyter server on CPU on with an editable install
-    > docker run -p 8888:8888 fastdotai/fastai2-dev jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
+    > docker run -p 8888:8888 fastdotai/fastai2-dev jupyter notebook --ip=0.0.0.0 --no-browser --port=8888
 
 - Test that your GPUS are visible to pytorch from within the docker container:
     > docker run --gpus 1 fastdotai/fastai2 python -c "import torch;print(torch.cuda.is_available())"
 
  - Run a jupyter server with all GPUs:
-    > docker run --gpus all -p 8888:8888 fastdotai/fastai2 jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
+    > docker run --gpus all -p 8888:8888 fastdotai/fastai2 jupyter notebook --ip=0.0.0.0 --no-browser --port=8888
     
 - Run a jupyter server with 2 GPUs on with an editable install:
-    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev jupyter notebook --ip=0.0.0.0 --no-browser --port=8888
 
 - Run a jupyter server with 2 GPUs on with an editable install for version fastai `0.0.22`:
-    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev:0.0.22 jupyter notebook --ip=0.0.0.0 --no-browser --allow-root --port=8888
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev:0.0.22 jupyter notebook --ip=0.0.0.0 --no-browser --port=8888
 
 </details>
 
