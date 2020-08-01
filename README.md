@@ -101,7 +101,7 @@ Docker images for [nbdev](https://github.com/fastai/nbev).  These containers are
 
 - **[fastdotai/nbdev](https://hub.docker.com/repository/docker/fastdotai/nbdev)**: an install of nbdev from the latest available version on GitHub.
     Pull this image:
-    > `docker pull fastdotai/nbdev-dev:latest`
+    > `docker pull fastdotai/nbdev:latest`
 
 - **[fastdotai/nbdev-dev](https://hub.docker.com/repository/docker/fastdotai/nbdev-dev)**:
 has an editable install of nbdev.
@@ -124,7 +124,7 @@ There are two common ways to utilize this container:
 ### nbdev Examples
 
 - Run a Jupyter server with an editable install of nbdev locally and mount your locally directory into the container.  We also bind the container port `8888` to `8888` on locahost so you can reach the Jupyter server:
-    > docker run -p 8888:8888 -v $PWD:/home/runner/my_data fastdotai/nbdev
+    > docker run -p 8888:8888 -v $PWD:/home/runner/my_data fastdotai/nbdev-dev
 
 - Run `nbdev_test_nbs` (in this case we are passing the -h flag to see help)
     > docker run fastdotai/nbdev nbdev_test_nbs -h
