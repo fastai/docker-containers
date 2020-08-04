@@ -17,12 +17,6 @@ jobs:
         python-version: '3.8'
         architecture: 'x64'
 
-    - name: get date
-      id: get_date
-      run: |
-        DATE_TAG=`date +%F`
-        echo "::set-output name=date_tag::${DATE_TAG}"
-
     - name: Install repo2docker
       run: python3 -m pip install jupyter-repo2docker
 
@@ -71,9 +65,8 @@ jobs:
     - name: push tags
       run: |
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
-        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
+        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:$(date +%F)
         docker push ${IMAGE_NAME}:${VERSION}
-        docker push ${IMAGE_NAME}:${DATE_TAG}
+        docker push ${IMAGE_NAME}:$(date +%F)
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
-        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}

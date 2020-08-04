@@ -47,22 +47,15 @@ jobs:
       env:
         BUILD_TYPE: ${{ matrix.build_type }}
 
-    - name: get date
-      id: get_date
-      run: |
-        DATE_TAG=`date +%F`
-        echo "::set-output name=date_tag::${DATE_TAG}"
-
     - name: build and tag container
       run: |
         export DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
         docker build --cache-from ${IMAGE_NAME}:latest --build-arg BUILD=${BUILD_TYPE} --build-arg BUILDKIT_INLINE_CACHE=1 -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
         docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
-        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${DATE_TAG}
+        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:$(date +%F)
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
-        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
         BUILD_TYPE: ${{ matrix.build_type }}
 
@@ -71,10 +64,9 @@ jobs:
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
         docker push ${IMAGE_NAME}:latest
         docker push ${IMAGE_NAME}:${VERSION}
-        docker push ${IMAGE_NAME}:${DATE_TAG}
+        docker push ${IMAGE_NAME}:$(date +%F)
       env:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         VERSION: ${{ steps.get_variables.outputs.version }}
-        DATE_TAG: ${{ steps.get_date.outputs.date_tag }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}

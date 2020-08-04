@@ -1,0 +1,24 @@
+name: Build pytorch testing image
+on: 
+  schedule:
+    - cron: '1 6 * * *'
+  workflow_dispatch: #allows you to trigger manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Copy Repository Contents
+      uses: actions/checkout@main
+
+    - name: build and push
+      run: |
+        echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
+        docker build -t fastdotai/torch-test -f torchcpu/Dockerfile torchcpu
+        docker tag fastdotai/torch-test:latest fastdotai/torch-test:$(date +%F)
+        docker push fastdotai/torch-test:$(date +%F)
+        docker push fastdotai/torch-test:latest
+      env:
+        USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

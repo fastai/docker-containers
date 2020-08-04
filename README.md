@@ -24,6 +24,7 @@ These Docker containers are useful for production, testing and online services o
 		- [nbdev Images](#nbdev-images)
 		- [nbdev Usage](#nbdev-usage)
 		- [nbdev Examples](#nbdev-examples)
+    - [torch-test](#torch-test)
 - [Miscellaneous Resources & Tips](#miscellaneous-resources-tips)
 
 <!-- /TOC -->
@@ -131,6 +132,14 @@ There are two common ways to utilize this container:
 
 - Run `nbdev_test_nbs` on notebooks in your local directory that you mount into the container.  We set the working directory in the container to `/home/runner/my_data` where your local files are located.
     >  docker run -w /home/runner/my_data -v $PWD:/home/runner/my_data fastdotai/nbdev nbdev_test_nbs
+
+## torch-test
+
+Image: [fastdotai/torch-test](https://hub.docker.com/repository/docker/fastdotai/torch-test)
+
+We build a custom container with minimal dependencies for [testing fastai](https://github.com/fastai/fastai2/blob/master/.github/workflows/main.yml). You can see the [Dockerfile to view the dependencies](torchcpu/Dockerfile).  
+
+We expect that very few people will use this particular image.
 
 ---
 
