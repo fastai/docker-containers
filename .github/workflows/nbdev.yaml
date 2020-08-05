@@ -3,6 +3,11 @@ on:
   schedule:
     - cron: '1 6 * * *'
   workflow_dispatch: #allows you to trigger manually
+  push:
+    branch:
+      - master
+    paths:
+      - 'nbdev-build/**'
 
 jobs:
   build:
