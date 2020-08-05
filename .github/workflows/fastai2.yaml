@@ -16,10 +16,6 @@ jobs:
       matrix:
         build_type: [prod, dev]
     steps:
-
-    - name: Copy settings.ini file
-      run: |
-        wget https://raw.githubusercontent.com/fastai/fastai2/master/settings.ini
    
     - name: Copy This Repository Contents
       uses: actions/checkout@main
@@ -28,6 +24,10 @@ jobs:
       with:
         python-version: '3.8'
         architecture: 'x64'
+
+    - name: Copy settings.ini file
+      run: |
+        wget https://raw.githubusercontent.com/fastai/fastai2/master/settings.ini
 
     - name: get version from settings.ini and create image name
       id: get_variables
