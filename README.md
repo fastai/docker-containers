@@ -59,7 +59,7 @@ Docker images for [fastai/fastai2](https://github.com/fastai/fastai2).  These im
     > `docker pull fastdotai/fastai2:latest`
 
 - **[fastdotai/fastai2-dev](https://hub.docker.com/repository/docker/fastdotai/fastai2-dev)**:
-has an editable install of fastai2 and fastcore and the latest release nbdev.  The editable installs for fastai and fastcore are located in `/home/docker-fastai2/fastai2` and `/home/docker-fastai2/fastcore`, respectively.
+has an editable install of fastai2 and fastcore.
 
     > Pull this image: `docker pull fastdotai/fastai2-dev:latest`
 
