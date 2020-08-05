@@ -63,8 +63,6 @@ has an editable install of fastai2 and fastcore.
 
     > Pull this image: `docker pull fastdotai/fastai2-dev:latest`
 
-Special thanks to [Giacomo Vianello](https://github.com/giacomov) for important contributions to this Docker image.
-
 ### fastai2 Usage
 
 If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [install Nvidia Docker](https://github.com/NVIDIA/nvidia-docker).  Afterwards, you will need to use the `--gpus` flag when running the container.  See the [usage](https://github.com/NVIDIA/nvidia-docker#usage) section for more details on the various arguments available.
