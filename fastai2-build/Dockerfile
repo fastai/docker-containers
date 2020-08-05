@@ -44,7 +44,7 @@ COPY ./docker/fastai2-build/conda_init.txt /home/conda_init.txt
 RUN cat /home/conda_init.txt >> ~/.bashrc
 COPY --chown=$DOCKER_USER ./docker/fastai2-build/entrypoint.sh /home/entrypoint.sh
 COPY --chown=$DOCKER_USER ./docker/fastai2-build/run_jupyter.sh /home/run_jupyter.sh
-ENV PATH="/miniconda3/bin:${PATH}"
+ENV PATH="/miniconda3/envs/fastai2/bin/python:${PATH}"
 RUN chmod u+x entrypoint.sh
 RUN chmod u+x run_jupyter.sh
 
