@@ -49,7 +49,7 @@ You can filter for the available tags by navigating to the Tags tab on the appop
 ## fastai2
 ![Build fastai2 images](https://github.com/fastai/docker-containers/workflows/Build%20fastai2%20images/badge.svg)
 
-Docker images for [fastai/fastai2](https://github.com/fastai/fastai2).  These images are built on top of [nvidia official CUDA images](https://hub.docker.com/r/nvidia/cuda/).  You can see the version of CUDA by looking at [the Dockerfile](fastai2-build/Dockerfile). **You must install [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) to enable gpu compatibility with these containers.** Furthermore, fastai2 is installed with [miniconda](https://docs.conda.io/en/latest/miniconda.html), as using conda is the [recommended way](https://github.com/fastai/fastai2#installing) to install fastai2 dependencies.  You can see how these images are built in [.github/workflows/fastai2.yaml](.github/workflows/fastai2.yaml).
+Docker images for [fastai/fastai2](https://github.com/fastai/fastai2).  These images are built on top of [the latest pytorch image](https://hub.docker.com/r/pytorch/pytorch/). **You must install [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) to enable gpu compatibility with these containers.**  The definition of this image can be found in [fastai2-build/Dockerfile](fastai2-build/Dockerfile).
 
 ### fastai2 Images
 
@@ -69,28 +69,35 @@ Special thanks to [Giacomo Vianello](https://github.com/giacomov) for important 
 
 If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [install Nvidia Docker](https://github.com/NVIDIA/nvidia-docker).  Afterwards, you will need to use the `--gpus` flag when running the container.  See the [usage](https://github.com/NVIDIA/nvidia-docker#usage) section for more details on the various arguments available.
 
+These images have the default user as `root`.  However, for production use cases you may [not want to run your containers as root](https://americanexpress.io/do-not-run-dockerized-applications-as-root/).  We leave it to the end user to configure their environment to suit their needs.  You can change to a non-root user with the flag `--user 9000`, which is illustrated in the examples below.
+
 ### fastai2 Examples
+
+> Note: the script `run_jupyter.sh` is a convenience script that is located in the home directory of these containers. This allows you to quickly run a jupyter server. The script has the command `jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser`.
 
 - Run an interacive shell on CPUs (for example your laptop) on the latest version of fastai2:
     >  docker run -it fastdotai/fastai2 bash
 
-- Run an interactive shell with `fastdotai/fastai2-dev` as the root user (with `--user root`), which can be helpful for installing various things.  Additionally, mount the current directory from your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag) in the container.
-   > docker run -it -v $PWD:/home/fastai-user -w /home/fastai-user --user root fastdotai/fastai2-dev bash
+- Run an interactive shell with `fastdotai/fastai2-dev` and mount the current directory from your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag) in the container.
+   > docker run -it -v $PWD:/home/fastai-user -w /home/fastai-user fastdotai/fastai2-dev bash
 
-- Run an jupyter server on CPU on with an editable install
-    > docker run -p 8888:8888 fastdotai/fastai2-dev jupyter notebook --ip=0.0.0.0 --no-browser --port=8888
+- Run an jupyter server on CPU on with an editable install on port 8888
+    > docker run -p 8888:8888 fastdotai/fastai2-dev ./run_jupyter.sh
 
 - Test that your GPUS are visible to pytorch from within the docker container:
     > docker run --gpus 1 fastdotai/fastai2 python -c "import torch;print(torch.cuda.is_available())"
 
+- Run the same command as above as a non-root user:
+    >  docker run -it --user 9000 another/tag python -c "import torch;print(torch.cuda.is_available())"
+
  - Run a jupyter server with all GPUs:
-    > docker run --gpus all -p 8888:8888 fastdotai/fastai2 jupyter notebook --ip=0.0.0.0 --no-browser --port=8888
+    > docker run --gpus all -p 8888:8888 fastdotai/fastai2 ./run_jupyter.sh
 
 - Run a jupyter server with 2 GPUs on with an editable install:
-    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev jupyter notebook --ip=0.0.0.0 --no-browser --port=8888
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev jupyter notebook ./run_jupyter.sh
 
 - Run a jupyter server with 2 GPUs on with an editable install for version fastai `0.0.22`:
-    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev:0.0.22 jupyter notebook --ip=0.0.0.0 --no-browser --port=8888
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev:0.0.22 jupyter notebook ./run_jupyter.sh
 
 ## nbdev
 

@@ -17,15 +17,12 @@ jobs:
         build_type: [prod, dev]
     steps:
 
-    - name: Copy Repository Contents
-      uses: actions/checkout@main
-      with:
-        repository: 'fastai/fastai2'
+    - name: Copy settings.ini file
+      run: |
+        wget https://raw.githubusercontent.com/fastai/fastai2/master/settings.ini
    
     - name: Copy This Repository Contents
       uses: actions/checkout@main
-      with:
-        path: 'docker/'  
   
     - uses: actions/setup-python@v2
       with:
@@ -37,8 +34,11 @@ jobs:
       run: |
         from configparser import ConfigParser
         import os
+        from pathlib import Path
         config = ConfigParser()
-        config.read('settings.ini')
+        settings = Path('settings.ini')
+        assert settings.exists(), 'Not able to read or download settings.ini file.'
+        config.read(settings)
         cfg = config['DEFAULT']
         print(f"::set-output name=version::{cfg['version']}")
 
@@ -56,9 +56,11 @@ jobs:
       run: |
         export DOCKER_BUILDKIT=1
         docker pull ${IMAGE_NAME}:latest || true
-        docker build --cache-from ${IMAGE_NAME}:latest --build-arg BUILD=${BUILD_TYPE} --build-arg BUILDKIT_INLINE_CACHE=1 -t ${IMAGE_NAME}:latest -f docker/fastai2-build/Dockerfile .
-        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:${VERSION}
-        docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME}:$(date +%F)
+        docker build --cache-from ${IMAGE_NAME}:latest --build-arg BUILD=${BUILD_TYPE} \
+          -t ${IMAGE_NAME}:latest \
+          -t ${IMAGE_NAME}:${VERSION} \
+          -t ${IMAGE_NAME}:$(date +%F) \
+          -f fastai2-build/Dockerfile fastai2-build
       env:
         VERSION: ${{ steps.get_variables.outputs.version }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
@@ -67,11 +69,8 @@ jobs:
     - name: push images
       run: |
         echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
-        docker push ${IMAGE_NAME}:latest
-        docker push ${IMAGE_NAME}:${VERSION}
-        docker push ${IMAGE_NAME}:$(date +%F)
+        docker push ${IMAGE_NAME}
       env:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        VERSION: ${{ steps.get_variables.outputs.version }}
         IMAGE_NAME: ${{ steps.get_variables.outputs.image_name }}
