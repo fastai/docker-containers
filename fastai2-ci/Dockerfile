@@ -1,4 +1,5 @@
 FROM fastdotai/fastai2
 
-COPY *.py ./
+COPY download_testdata.py ./
+COPY extract.sh ./
 RUN python download_testdata.py
