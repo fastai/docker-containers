@@ -22,7 +22,7 @@ jobs:
 
     - name: build and tag container
       run: |
-        docker build \
+        docker build --squash \
           -t ${IMAGE_NAME}:latest \
           -t ${IMAGE_NAME}:$(date +%F) \
           -f fastai2-ci/Dockerfile fastai2-ci
