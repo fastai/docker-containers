@@ -5,7 +5,7 @@ on:
     - cron: '1 9 * * *'
   workflow_dispatch: #allows you to trigger manually
   push:
-    branch:
+    branches:
       - master
     paths:
       - 'fastai2-ci/**'
