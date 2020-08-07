@@ -22,6 +22,7 @@ jobs:
 
     - name: build and tag container
       run: |
+        echo '{"experimental": true}' | sudo tee -a /etc/docker/daemon.json
         docker build --squash \
           -t ${IMAGE_NAME}:latest \
           -t ${IMAGE_NAME}:$(date +%F) \
