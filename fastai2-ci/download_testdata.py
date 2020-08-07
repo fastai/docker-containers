@@ -10,7 +10,3 @@ urls = ['ADULT_SAMPLE','BIWI_SAMPLE','CAMVID_TINY','CIFAR','COCO_SAMPLE','COCO_T
 url_list = [URLs.__dict__[k] for k in urls]
 files = [(print(f'Downloading {u}'), download_data(u)) for u in url_list]
 
-# save paths to downloaded tar files in the root
-file_list = [f[1] for f in files]
-with open('/root/ci_files.pkl', 'wb') as f:
-    pickle.dump(file_list, f)
