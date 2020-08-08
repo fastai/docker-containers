@@ -2,7 +2,7 @@ FROM pytorch/pytorch
 
 ARG BUILD=dev
 
-RUN apt-get update && apt-get install -y git libglib2.0-dev
+RUN apt-get update && apt-get install -y git-all libglib2.0-dev
 RUN pip install albumentations \
     jupyter \
     matplotlib \
