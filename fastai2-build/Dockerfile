@@ -25,9 +25,9 @@ RUN pip install albumentations \
     wandb
 
 RUN git clone https://github.com/fastai/fastai-docs.git --depth 1
-RUN git clone https://github.com/fastai/fastai2.git --depth 1  && git clone https://github.com/fastai/fastcore.git --depth 1
-RUN /bin/bash -c "if [[ $BUILD == 'prod' ]] ; then echo \"Production Build\" && cd fastai2 && pip install . && cd ../fastcore && pip install .; fi"
-RUN /bin/bash -c "if [[ $BUILD == 'dev' ]] ; then echo \"Development Build\" && cd fastai2 && pip install -e \".[dev]\" && cd ../fastcore && pip install -e \".[dev]\"; fi"
+RUN git clone https://github.com/fastai/fastai.git --depth 1  && git clone https://github.com/fastai/fastcore.git --depth 1
+RUN /bin/bash -c "if [[ $BUILD == 'prod' ]] ; then echo \"Production Build\" && cd fastai && pip install . && cd ../fastcore && pip install .; fi"
+RUN /bin/bash -c "if [[ $BUILD == 'dev' ]] ; then echo \"Development Build\" && cd fastai && pip install -e \".[dev]\" && cd ../fastcore && pip install -e \".[dev]\"; fi"
 RUN echo '#!/bin/bash\njupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser' >> run_jupyter.sh
 COPY download_testdata.py ./
 COPY extract.sh ./
