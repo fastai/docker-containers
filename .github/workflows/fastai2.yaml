@@ -1,4 +1,4 @@
-name: Build fastai2 images
+name: Build fastai images
 on: 
   schedule:
     - cron: '1 6 * * *'
@@ -27,7 +27,7 @@ jobs:
 
     - name: Copy settings.ini file
       run: |
-        wget https://raw.githubusercontent.com/fastai/fastai2/master/settings.ini
+        wget https://raw.githubusercontent.com/fastai/fastai/master/settings.ini
 
     - name: get version from settings.ini and create image name
       id: get_variables
