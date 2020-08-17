@@ -1,4 +1,4 @@
-![Build fastai2 images](https://github.com/fastai/docker-containers/workflows/Build%20fastai2%20images/badge.svg) ![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20images/badge.svg) 
+![Build fastai images](https://github.com/fastai/docker-containers/workflows/Build%20fastai%20images/badge.svg) ![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20images/badge.svg) 
 
 # Docker Containers For fast.ai
 
@@ -16,10 +16,10 @@ These Docker containers are useful for production, testing and online services o
 - [Table of Contents](#table-of-contents)
 - [Tags](#tags)
 - [Projects](#projects)
-	- [fastai2](#fastai2)
-		- [fastai2 Images](#fastai2-images)
-		- [fastai2 Usage](#fastai2-usage)
-		- [fastai2 Examples](#fastai2-examples)
+	- [fastai](#fastai)
+		- [fastai Images](#fastai-images)
+		- [fastai Usage](#fastai-usage)
+		- [fastai Examples](#fastai-examples)
 	- [nbdev](#nbdev)
 		- [nbdev Images](#nbdev-images)
 		- [nbdev Usage](#nbdev-usage)
@@ -45,10 +45,10 @@ You can filter for the available tags by navigating to the Tags tab on the appop
 
 # Projects
 
-## fastai2
-![Build fastai2 images](https://github.com/fastai/docker-containers/workflows/Build%20fastai2%20images/badge.svg)
+## fastai
+![Build fastai images](https://github.com/fastai/docker-containers/workflows/Build%20fastai%20images/badge.svg)
 
-Docker images for [fastai/fastai2](https://github.com/fastai/fastai2).  These images are built on top of [the latest pytorch image](https://hub.docker.com/r/pytorch/pytorch/). **You must install [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) to enable gpu compatibility with these containers.**  The definition of this image can be found in [fastai2-build/Dockerfile](fastai2-build/Dockerfile).
+Docker images for [fastai/fastai](https://github.com/fastai/fastai).  These images are built on top of [the latest pytorch image](https://hub.docker.com/r/pytorch/pytorch/). **You must install [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) to enable gpu compatibility with these containers.**  The definition of this image can be found in [fastai2-build/Dockerfile](fastai2-build/Dockerfile).
 
 ### fastai2 Images
 
@@ -62,13 +62,13 @@ has an editable install of fastai2 and fastcore.
 
     > Pull this image: `docker pull fastdotai/fastai2-dev:latest`
 
-### fastai2 Usage
+### fastai Usage
 
 If you have a Nvdia GPU that is compatible with CUDA 10 or higher, you should [install Nvidia Docker](https://github.com/NVIDIA/nvidia-docker).  Afterwards, you will need to use the `--gpus` flag when running the container.  See the [usage](https://github.com/NVIDIA/nvidia-docker#usage) section for more details on the various arguments available.
 
 These images have the default user as `root`.  However, for production use cases you may [not want to run your containers as root](https://americanexpress.io/do-not-run-dockerized-applications-as-root/).  We leave it to the end user to configure their environment to suit their needs.  You can change to a non-root user with the flag `--user 9000`, which is illustrated in the examples below.
 
-### fastai2 Examples
+### fastai Examples
 
 > Note: the script `run_jupyter.sh` is a convenience script that is located in the home directory of these containers. This allows you to quickly run a jupyter server. The script has the command `jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser`.
 
