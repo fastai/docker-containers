@@ -33,13 +33,13 @@ These Docker containers are useful for production, testing and online services o
 The following tags are available for all images:
 
 - `latest`: the most current build.
-    > example: `docker pull fastdotai/fastai2:latest`
+    > example: `docker pull fastdotai/fastai:latest`
 
 - `version`: corresponds to the version of the project when the container was built.
-    > example: `docker pull fastdotai/fastai2:0.0.22`
+    > example: `docker pull fastdotai/fastai:0.0.22`
 
 - `YYYY-MM-DD`: corresponds to the date the container was built.
-    > example: `docker pull fastdotai/fastai2:2020-07-31`
+    > example: `docker pull fastdotai/fastai:2020-07-31`
 
 You can filter for the available tags by navigating to the Tags tab on the appopriate [DockerHub repository](https://hub.docker.com/u/fastdotai) that corresponds to the container you are using.
 
@@ -48,19 +48,19 @@ You can filter for the available tags by navigating to the Tags tab on the appop
 ## fastai
 ![Build fastai images](https://github.com/fastai/docker-containers/workflows/Build%20fastai%20images/badge.svg)
 
-Docker images for [fastai/fastai](https://github.com/fastai/fastai).  These images are built on top of [the latest pytorch image](https://hub.docker.com/r/pytorch/pytorch/). **You must install [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) to enable gpu compatibility with these containers.**  The definition of this image can be found in [fastai2-build/Dockerfile](fastai2-build/Dockerfile).
+Docker images for [fastai/fastai](https://github.com/fastai/fastai).  These images are built on top of [the latest pytorch image](https://hub.docker.com/r/pytorch/pytorch/). **You must install [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) to enable gpu compatibility with these containers.**  The definition of this image can be found in [fastai-build/Dockerfile](fastai-build/Dockerfile).
 
-### fastai2 Images
+### fastai Images
 
-- **[fastdotai/fastai2](https://hub.docker.com/repository/docker/fastdotai/fastai2)**: fastai2 and fastcore, with all of thier depenendencies.
+- **[fastdotai/fastai](https://hub.docker.com/repository/docker/fastdotai/fastai)**: fastai and fastcore, with all of thier depenendencies.
 
     Pull this image:
-    > `docker pull fastdotai/fastai2:latest`
+    > `docker pull fastdotai/fastai:latest`
 
-- **[fastdotai/fastai2-dev](https://hub.docker.com/repository/docker/fastdotai/fastai2-dev)**:
-has an editable install of fastai2 and fastcore.
+- **[fastdotai/fastai-dev](https://hub.docker.com/repository/docker/fastdotai/fastai-dev)**:
+has an editable install of fastai and fastcore.
 
-    > Pull this image: `docker pull fastdotai/fastai2-dev:latest`
+    > Pull this image: `docker pull fastdotai/fastai-dev:latest`
 
 ### fastai Usage
 
@@ -72,29 +72,29 @@ These images have the default user as `root`.  However, for production use cases
 
 > Note: the script `run_jupyter.sh` is a convenience script that is located in the home directory of these containers. This allows you to quickly run a jupyter server. The script has the command `jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser`.
 
-- Run an interacive shell on CPUs (for example your laptop) on the latest version of fastai2:
-    >  docker run -it fastdotai/fastai2 bash
+- Run an interacive shell on CPUs (for example your laptop) on the latest version of fastai:
+    >  docker run -it fastdotai/fastai bash
 
-- Run an interactive shell with `fastdotai/fastai2-dev` and mount the current directory from your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag) in the container.
-   > docker run -it -v $PWD:/home/fastai-user -w /home/fastai-user fastdotai/fastai2-dev bash
+- Run an interactive shell with `fastdotai/fastai-dev` and mount the current directory from your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag) in the container.
+   > docker run -it -v $PWD:/home/fastai-user -w /home/fastai-user fastdotai/fastai-dev bash
 
 - Run an jupyter server on CPU on with an editable install on port 8888
-    > docker run -p 8888:8888 fastdotai/fastai2-dev ./run_jupyter.sh
+    > docker run -p 8888:8888 fastdotai/fastai-dev ./run_jupyter.sh
 
 - Test that your GPUS are visible to pytorch from within the docker container:
-    > docker run --gpus 1 fastdotai/fastai2 python -c "import torch;print(torch.cuda.is_available())"
+    > docker run --gpus 1 fastdotai/fastai python -c "import torch;print(torch.cuda.is_available())"
 
 - Run the same command as above as a non-root user:
     >  docker run -it --user 9000 another/tag python -c "import torch;print(torch.cuda.is_available())"
 
  - Run a jupyter server with all GPUs:
-    > docker run --gpus all -p 8888:8888 fastdotai/fastai2 ./run_jupyter.sh
+    > docker run --gpus all -p 8888:8888 fastdotai/fastai ./run_jupyter.sh
 
 - Run a jupyter server with 2 GPUs on with an editable install:
-    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev jupyter notebook ./run_jupyter.sh
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai-dev jupyter notebook ./run_jupyter.sh
 
 - Run a jupyter server with 2 GPUs on with an editable install for version fastai `0.0.22`:
-    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai2-dev:0.0.22 jupyter notebook ./run_jupyter.sh
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai-dev:0.0.22 jupyter notebook ./run_jupyter.sh
 
 ## nbdev
 
