@@ -2,8 +2,8 @@
 Downloads test data used in CI
 """
 from IPython import get_ipython
-from fastai2.data.external import download_data, URLs
-from fastai2.torch_core import parallel
+from fastai.data.external import download_data, URLs
+from fastai.torch_core import parallel
 import pickle
 
 urls = ['ADULT_SAMPLE','BIWI_SAMPLE','CAMVID_TINY','CIFAR','COCO_TINY','IMDB','IMDB_SAMPLE',
