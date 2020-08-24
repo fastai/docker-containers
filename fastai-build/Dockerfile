@@ -16,6 +16,7 @@ RUN pip install albumentations \
     pillow \
     pyarrow \
     pydicom \
+    kornia \
     scikit-learn \
     scikit-image \
     scipy \
