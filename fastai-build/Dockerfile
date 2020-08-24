@@ -18,7 +18,6 @@ RUN pip install albumentations \
     pillow \
     pyarrow \
     pydicom \
-    pytorch-lightning \
     pyyaml \
     scikit-learn \
     scikit-image \
