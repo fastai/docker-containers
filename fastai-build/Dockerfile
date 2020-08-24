@@ -5,18 +5,21 @@ ARG BUILD=dev
 RUN apt-get update && apt-get install -y software-properties-common && apt-get update
 RUN add-apt-repository -y ppa:git-core/ppa && apt-get update && apt-get install -y git libglib2.0-dev
 RUN pip install albumentations \
-    jupyter \
-    matplotlib \
-    pandas \
-    pyyaml \
+    catalyst \
+    captum \
     "fastprogress>=0.1.22" \
+    jupyter \
+    kornia \
+    matplotlib \
     nbdev \
     neptune-cli \
     opencv-python \
+    pandas \
     pillow \
     pyarrow \
     pydicom \
-    kornia \
+    pytorch-lightning \
+    pyyaml \
     scikit-learn \
     scikit-image \
     scipy \
