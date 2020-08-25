@@ -1,4 +1,4 @@
-![Build fastai images](https://github.com/fastai/docker-containers/workflows/Build%20fastai%20images/badge.svg) ![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20images/badge.svg) 
+![Build fastai images](https://github.com/fastai/docker-containers/workflows/Build%20fastai%20images/badge.svg) ![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20images/badge.svg) ![Build nbdev docs](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20docs/badge.svg)
 
 # Docker Containers For fast.ai
 
@@ -145,7 +145,7 @@ There are two common ways to utilize this container:
 
 ## nbdev-docs
 
-![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev-docs%20images/badge.svg)
+![Build nbdev docs](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20docs/badge.svg)
 
 These are Jekyll based images for building docs associated with nbev.  These are used by fastai to build docs for various projects, that have all necessary gems installed.
 
