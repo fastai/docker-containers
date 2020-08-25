@@ -24,6 +24,7 @@ These Docker containers are useful for production, testing and online services o
 		- [nbdev Images](#nbdev-images)
 		- [nbdev Usage](#nbdev-usage)
 		- [nbdev Examples](#nbdev-examples)
+    - [nbdev-docs](#nbdev-docs)
 - [Miscellaneous Resources & Tips](#miscellaneous-resources-tips)
 
 <!-- /TOC -->
@@ -61,6 +62,11 @@ Docker images for [fastai/fastai](https://github.com/fastai/fastai).  These imag
 has an editable install of fastai and fastcore.
 
     > Pull this image: `docker pull fastdotai/fastai-dev:latest`
+
+- **[fastdotai/fastai-course](https://hub.docker.com/repository/docker/fastdotai/fastai-course)**:
+is the same as `fastdotai/fastai` but additionally has the the [version 4 course notebooks](https://github.com/fastai/course-v4) and [fastbook](https://github.com/fastai/fastbook) cloned into the container.
+
+    > Pull this image: `docker pull fastdotai/fastai-course:latest`
 
 ### fastai Usage
 
@@ -136,7 +142,16 @@ There are two common ways to utilize this container:
 
 - Run `nbdev_test_nbs` on notebooks in your local directory that you mount into the container.  We set the working directory in the container to `/home/runner/my_data` where your local files are located.
     >  docker run -w /home/runner/my_data -v $PWD:/home/runner/my_data fastdotai/nbdev nbdev_test_nbs
+
+## nbdev-docs
+
+![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev-docs%20images/badge.svg)
+
+These are Jekyll based images for building docs associated with nbev.  These are used by fastai to build docs for various projects, that have all necessary gems installed.
+
+This image can can be found on dockerhub: [fastdotai/nbdev-docs](https://hub.docker.com/repository/docker/fastdotai/nbdev-docs)
 ---
+
 
 # Miscellaneous Resources & Tips
 
