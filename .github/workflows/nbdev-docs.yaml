@@ -24,11 +24,9 @@ jobs:
         USERNAME: ${{ secrets.DOCKER_USERNAME }}
         PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: Build Container
+    - name: Build and push container
       run: |
         IMAGE_NAME="fastdotai/nbdev-docs"
         docker build -t ${IMAGE_NAME} -t ${IMAGE_NAME}:$(date +%F) -f nbdev-docs/Dockerfile nbdev-docs
-
-    - name: push image
-      run: |
         docker push ${IMAGE_NAME}
+
