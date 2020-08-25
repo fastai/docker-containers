@@ -2,7 +2,7 @@ FROM pytorch/pytorch
 
 ARG BUILD=dev
 
-RUN apt-get update && apt-get install -y software-properties-common && apt-get update
+RUN apt-get update && apt-get install -y software-properties-common rsync && apt-get update
 RUN add-apt-repository -y ppa:git-core/ppa && apt-get update && apt-get install -y git libglib2.0-dev
 RUN pip install albumentations \
     catalyst \
@@ -37,3 +37,4 @@ COPY download_testdata.py ./
 COPY extract.sh ./
 RUN chmod u+x extract.sh
 RUN chmod u+x run_jupyter.sh
+
