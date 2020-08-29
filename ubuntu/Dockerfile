@@ -11,6 +11,7 @@ RUN add-apt-repository -y ppa:apt-fast/stable && apt-get update
 RUN apt-get update
 RUN apt-get -y install apt-fast apt-utils
 RUN apt-fast install -y wget bzip2 ca-certificates git rsync build-essential curl grep sed dpkg sudo perl wget libglib2.0-dev zlib1g-dev lsb-release
+RUN sudo apt-get clean
 
 RUN mkdir .ssh && chmod 700 .ssh
 COPY config .ssh/

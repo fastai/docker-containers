@@ -6,7 +6,8 @@ ENV HOME=/root
 WORKDIR /root
 
 COPY setup_conda.sh ./
-RUN bash setup_conda.sh && rm setup_conda.sh
+RUN bash setup_conda.sh
+RUN rm setup_conda.sh
 
 CMD [ "/bin/bash" ]
 
