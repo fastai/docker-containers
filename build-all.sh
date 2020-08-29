@@ -1,14 +1,10 @@
 #!/bin/bash
-cd ubuntu
-../build.sh
-../push.sh
-cd jekyll
-../build.sh
-../push.sh
-cd miniconda
-../build.sh
-../push.sh
-cd nbdev
-../build.sh
-../push.sh
+set -e
+cd $(dirname "$0") #make sure we are in the root of the repo
 
+for d in ubuntu jekyll miniconda nbdev; do
+    cd $d
+    echo "building $d"
+    ../build.sh
+    ../push.sh
+done
