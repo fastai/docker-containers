@@ -1,14 +1,8 @@
 #!/bin/bash
-cd ubuntu
-../build.sh
-../push.sh
-cd jekyll
-../build.sh
-../push.sh
-cd miniconda
-../build.sh
-../push.sh
-cd nbdev
-../build.sh
-../push.sh
+for d in ubuntu jekyll miniconda nbdev; do
+    cd $d
+    echo "building $d"
+    ../build.sh
+    ../push.sh
+done
 
