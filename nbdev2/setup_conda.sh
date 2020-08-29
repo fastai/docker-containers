@@ -34,5 +34,3 @@ echo source ~/.condainit >> .bashrc
 . .condainit
 
 conda install -y mamba python
-conda clean --all -y
-
