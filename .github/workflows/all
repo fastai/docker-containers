@@ -1,0 +1,19 @@
+name: Build fastai images
+on: 
+  schedule:
+    - cron: '1 6 * * *'
+  workflow_dispatch: #allows you to trigger manually
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Copy This Repository Contents
+      uses: actions/checkout@main
+    - name: build and tag container
+      run: |
+        echo ${PASSWORD} | docker login -u $USERNAME --password-stdin
+        ./build-all.sh
+      env:
+        USERNAME: ${{ secrets.JH_DOCKER_USER }}
+        PASSWORD: ${{ secrets.JH_DOCKER_PASS }}
