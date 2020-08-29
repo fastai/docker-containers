@@ -1,4 +1,4 @@
-name: Build fastai images
+name: Build all images
 on: 
   schedule:
     - cron: '1 6 * * *'
