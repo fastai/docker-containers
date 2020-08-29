@@ -11,10 +11,10 @@ COPY Gemfile tmp/
 
 RUN apt-fast install -y ruby-full
 
-RUN gem install jekyll bundler
-RUN cd tmp && bundle config set system 'true' && bundle install
-RUN rm -rf tmp
-RUN sudo apt-get clean
+RUN gem install jekyll bundler \
+ && cd tmp && bundle config set system 'true' && bundle install \
+ && rm -rf tmp \
+ && sudo apt-get clean
 
 CMD [ "/bin/bash" ]
 
