@@ -11,5 +11,5 @@ gem install jekyll bundler
 cd tmp
 bundle config set system 'true'
 bundle install
-rm -rf tmp
+rm -rf tmp Gemfile*
 

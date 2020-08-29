@@ -31,6 +31,7 @@ rm Miniconda3-latest*.sh
 perl -n  -e 'print if     />>> conda/../<<< conda/' .bashrc > .condainit
 perl -ni -e 'print unless />>> conda/../<<< conda/' .bashrc
 echo source ~/.condainit >> .bashrc
+echo conda activate >> .condainit
 . .condainit
 
 conda install -y mamba python
