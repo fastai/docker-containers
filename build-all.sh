@@ -7,4 +7,5 @@ for d in ubuntu jekyll miniconda nbdev; do
     echo "building $d"
     ../build.sh
     ../push.sh
+    cd ..
 done
