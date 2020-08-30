@@ -1,2 +1,2 @@
-bash --login script.sh
+bash -li script.sh
 
