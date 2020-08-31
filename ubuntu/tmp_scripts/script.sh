@@ -4,7 +4,8 @@ add-apt-repository -y ppa:apt-fast/stable
 apt-get update
 apt-get -y install apt-fast apt-utils
 apt-fast install -y wget bzip2 ca-certificates git rsync build-essential curl \
-  grep sed dpkg sudo perl wget libglib2.0-dev zlib1g-dev lsb-release tmux less
+  grep sed dpkg sudo perl wget libglib2.0-dev zlib1g-dev lsb-release tmux less \
+  ack-grep htop ctags
 python3-pip vim-nox openssh-client
 echo 'alias python=python3.8' >> .bashrc
 echo 'syntax on' > .vimrc
