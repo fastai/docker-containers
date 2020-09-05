@@ -4,7 +4,7 @@
 
 This repository builds various docker images relevant to projects in [fastai](https://github.com/fastai/) on a recurring schedule [defined in this repo's workflow files](.github/workflows/). You must install [Docker](https://docs.docker.com/get-docker/) before using this project.
 
-These Docker containers are useful for production, testing and online services or to facilitate scenarios that require reproduceability and portability.  Some familiarity with Docker is assumed before using these containers.  For a gentle introduction to Docker, see [this blog post](https://towardsdatascience.com/how-docker-can-help-you-become-a-more-effective-data-scientist-7fc048ef91d5).
+These Docker containers are useful for production, testing and online services or to facilitate scenarios that require reproducibility and portability.  Some familiarity with Docker is assumed before using these containers.  For a gentle introduction to Docker, see [this blog post](https://towardsdatascience.com/how-docker-can-help-you-become-a-more-effective-data-scientist-7fc048ef91d5).
 
 **For students taking the fast.ai courses, or for prototyping and development, fast.ai recommends using [Anaconda](https://www.anaconda.com/) in your home directory, instead of these containers.** Please consult the appropriate repository for installation instructions.
 
@@ -53,7 +53,7 @@ Docker images for [fastai/fastai](https://github.com/fastai/fastai).  These imag
 
 ### fastai Images
 
-- **[fastdotai/fastai](https://hub.docker.com/repository/docker/fastdotai/fastai)**: fastai and fastcore, with all of thier depenendencies.
+- **[fastdotai/fastai](https://hub.docker.com/repository/docker/fastdotai/fastai)**: fastai and fastcore, with all of their dependencies.
 
     Pull this image:
     > `docker pull fastdotai/fastai:latest`
@@ -78,16 +78,16 @@ These images have the default user as `root`.  However, for production use cases
 
 > Note: the script `run_jupyter.sh` is a convenience script that is located in the home directory of these containers. This allows you to quickly run a jupyter server. The script has the command `jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser`.
 
-- Run an interacive shell on CPUs (for example your laptop) on the latest version of fastai:
+- Run an interactive shell on CPUs (for example your laptop) on the latest version of fastai:
     >  docker run -it fastdotai/fastai bash
 
 - Run an interactive shell with `fastdotai/fastai-dev` and mount the current directory from your host file system to `/home/fastai-user` in the container (the `-v` flag) as well as make this the home directory (the `-w` flag) in the container.
    > docker run -it -v $PWD:/home/fastai-user -w /home/fastai-user fastdotai/fastai-dev bash
 
-- Run an jupyter server on CPU on with an editable install on port 8888
+- Run a jupyter server on CPU with an editable install on port 8888
     > docker run -p 8888:8888 fastdotai/fastai-dev ./run_jupyter.sh
 
-- Test that your GPUS are visible to pytorch from within the docker container:
+- Test that your GPUs are visible to pytorch from within the docker container:
     > docker run --gpus 1 fastdotai/fastai python -c "import torch;print(torch.cuda.is_available())"
 
 - Run the same command as above as a non-root user:
@@ -106,7 +106,7 @@ These images have the default user as `root`.  However, for production use cases
 
 ![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20images/badge.svg)
 
-Docker images for [nbdev](https://github.com/fastai/nbev).  These containers are built using [repo2docker](https://repo2docker.readthedocs.io/en/latest/index.html), and come bundled working  Jupyter and JupyterLab. You can see how these images are built in [.github/workflows/nbdev.yaml](.github/workflows/nbdev.yaml).  The default entrypoint into these containers are Jupyter servers running on port `8888` with a user named `runner`, with a working directory of `/home/runner` in the container.
+Docker images for [nbdev](https://github.com/fastai/nbev).  These containers are built using [repo2docker](https://repo2docker.readthedocs.io/en/latest/index.html), and come bundled working Jupyter and JupyterLab. You can see how these images are built in [.github/workflows/nbdev.yaml](.github/workflows/nbdev.yaml).  The default entrypoints into these containers are Jupyter servers running on port `8888` with a user named `runner`, with a working directory of `/home/runner` in the container.
 
 ### nbdev Images
 
@@ -128,13 +128,13 @@ There are two common ways to utilize this container:
             > `http(s)://<server:port>/lab`
         - Switch back to the classic notebook, add `/tree` to the URL like so:
             > `http(s)://<server:port>/tree`
-        - You can launch nteract from within a user session by replacing /tree with /nteract at the end of a notebook server’s URL like so:
+        - Launch nteract from within a user session by replacing /tree with /nteract at the end of a notebook server’s URL like so:
             > `http(s)://<server:port>/nteract`
    2. Run [nbdev utilities as part of your CI](https://github.com/fastai/nbdev#using-nbdev-as-part-of-your-ci) such as `nbdev_read_nbs`, `nbdev_clean_nbs`, `nbdev_diff_nbs`, `nbdev_test_nbs`.
 
 ### nbdev Examples
 
-- Run a Jupyter server with an editable install of nbdev locally and mount your locally directory into the container.  We also bind the container port `8888` to `8888` on locahost so you can reach the Jupyter server:
+- Run a Jupyter server with an editable install of nbdev locally and mount your local directory into the container.  We also bind the container port `8888` to `8888` on localhost so you can reach the Jupyter server:
     > docker run -p 8888:8888 -v $PWD:/home/runner/my_data fastdotai/nbdev-dev
 
 - Run `nbdev_test_nbs` (in this case we are passing the -h flag to see help)
