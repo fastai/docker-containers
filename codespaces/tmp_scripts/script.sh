@@ -9,10 +9,10 @@ apt-get -y install apt-fast apt-utils
 #apt-fast install -y gh
 apt-fast install -y vim-nox ack-grep pigz
 
-pip install -U watchdog[watchmedo]
+pip install -U watchdog[watchmedo] bash_kernel
+python -m bash_kernel.install
 rm -f download_testdata.py
 
 echo 'syntax on' > .vimrc
 
-echo "Container Ready."
 
