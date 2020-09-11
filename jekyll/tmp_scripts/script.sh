@@ -1,4 +1,4 @@
-pip install -Uq nbdev
+pip install -Uq nbdev watchdog[watchmedo]
 python -m ipykernel install
 apt install -y ruby-full
 gem install jekyll bundler
