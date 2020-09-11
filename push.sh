@@ -1,4 +1,4 @@
 #!/bin/bash
 
-docker push fastai/${PWD##*/}:latest
+docker push fastai/${PWD##*/}
 
