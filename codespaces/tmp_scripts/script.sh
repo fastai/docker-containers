@@ -8,7 +8,7 @@ apt-get update
 apt-get -y install apt-fast apt-utils
 apt-fast install -y vim-nox ack-grep pigz gh
 
-pip install -U watchdog[watchmedo] bash_kernel
+pip install -U bash_kernel
 python -m bash_kernel.install
 rm -f download_testdata.py
 
