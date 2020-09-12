@@ -1,4 +1,4 @@
-name: Build all images
+name: Build CI Containers
 on: 
   schedule:
     - cron: '1 6 * * *'
