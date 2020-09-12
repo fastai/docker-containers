@@ -1,4 +1,4 @@
-![Build fastai images](https://github.com/fastai/docker-containers/workflows/Build%20fastai%20images/badge.svg) ![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20images/badge.svg) ![Build nbdev docs](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20docs/badge.svg)
+![Build fastai images](https://github.com/fastai/docker-containers/workflows/Build%20fastai%20images/badge.svg) ![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20images/badge.svg) ![Build nbdev docs](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20docs/badge.svg) ![Build CI Containers](https://github.com/fastai/docker-containers/workflows/Build%20CI%20Containers/badge.svg)
 
 # Docker Containers For fast.ai
 
