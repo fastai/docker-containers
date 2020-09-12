@@ -1,7 +1,7 @@
 name: Build CI Containers
 on: 
   schedule:
-    - cron: '1 6 * * *'
+    - cron: '00 01,13 * * *'
   workflow_dispatch: #allows you to trigger manually
 
 jobs:
