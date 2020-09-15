@@ -97,10 +97,10 @@ These images have the default user as `root`.  However, for production use cases
     > docker run --gpus all -p 8888:8888 fastdotai/fastai ./run_jupyter.sh
 
 - Run a jupyter server with 2 GPUs on with an editable install:
-    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai-dev jupyter notebook ./run_jupyter.sh
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai-dev ./run_jupyter.sh
 
 - Run a jupyter server with 2 GPUs on with an editable install for version fastai `0.0.22`:
-    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai-dev:0.0.22 jupyter notebook ./run_jupyter.sh
+    > docker run --gpus 2 -p 8888:8888 fastdotai/fastai-dev:0.0.22 ./run_jupyter.sh
 
 ## nbdev
 
