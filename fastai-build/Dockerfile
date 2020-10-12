@@ -3,7 +3,7 @@ FROM pytorch/pytorch
 ARG BUILD=dev
 
 RUN apt-get update && apt-get install -y software-properties-common rsync
-RUN add-apt-repository -y ppa:git-core/ppa && apt-get update && apt-get install -y git libglib2.0-dev && apt-get update
+RUN add-apt-repository -y ppa:git-core/ppa && apt-get update && apt-get install -y git libglib2.0-dev graphviz && apt-get update
 RUN pip install albumentations \
     catalyst \
     captum \
