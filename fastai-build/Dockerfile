@@ -12,6 +12,7 @@ RUN pip install albumentations \
     jupyter \
     kornia \
     matplotlib \
+    "nbconvert<6"\
     nbdev \
     neptune-cli \
     opencv-python \
