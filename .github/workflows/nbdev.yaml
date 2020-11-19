@@ -56,7 +56,7 @@ jobs:
       run: |
         IMAGE_NAME="fastdotai/nbdev" 
         echo "current directory: ${PWD}"
-        echo "::set-env name=IMAGE_NAME::${IMAGE_NAME}"
+        echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
         repo2docker --image-name "${IMAGE_NAME}:latest" --push --no-run --user-id 1000 ${PWD}
 
     - name: Build Dev Container (with editable install)
@@ -64,7 +64,7 @@ jobs:
       run: |
         IMAGE_NAME="fastdotai/nbdev-dev"
         echo "current directory: ${PWD}"
-        echo "::set-env name=IMAGE_NAME::${IMAGE_NAME}" 
+        echo "IMAGE_NAME=${IMAGE_NAME}" >> $GITHUB_ENV
         repo2docker --image-name "${IMAGE_NAME}:latest" --editable --push --user-id 1000 ${PWD}  echo "dev build completed"
 
     - name: push tags
