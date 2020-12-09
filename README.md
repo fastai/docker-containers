@@ -106,7 +106,7 @@ These images have the default user as `root`.  However, for production use cases
 
 ![Build nbdev images](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20images/badge.svg)
 
-Docker images for [nbdev](https://github.com/fastai/nbev).  These containers are built using [repo2docker](https://repo2docker.readthedocs.io/en/latest/index.html), and come bundled working Jupyter and JupyterLab. You can see how these images are built in [.github/workflows/nbdev.yaml](.github/workflows/nbdev.yaml).  The default entrypoints into these containers are Jupyter servers running on port `8888` with a user named `runner`, with a working directory of `/home/runner` in the container.
+Docker images for [nbdev](https://github.com/fastai/nbdev).  These containers are built using [repo2docker](https://repo2docker.readthedocs.io/en/latest/index.html), and come bundled working Jupyter and JupyterLab. You can see how these images are built in [.github/workflows/nbdev.yaml](.github/workflows/nbdev.yaml).  The default entrypoints into these containers are Jupyter servers running on port `8888` with a user named `runner`, with a working directory of `/home/runner` in the container.
 
 ### nbdev Images
 
