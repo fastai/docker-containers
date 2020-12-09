@@ -147,7 +147,7 @@ There are two common ways to utilize this container:
 
 ![Build nbdev docs](https://github.com/fastai/docker-containers/workflows/Build%20nbdev%20docs/badge.svg)
 
-These are Jekyll based images for building docs associated with nbev.  These are used by fastai to build docs for various projects, that have all necessary gems installed.
+These are Jekyll based images for building docs associated with nbdev.  These are used by fastai to build docs for various projects, that have all necessary gems installed.
 
 > Pull this image: docker pull fastdotai/nbdev-docs:latest
 
