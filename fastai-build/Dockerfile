@@ -14,7 +14,7 @@ RUN pip install albumentations \
     matplotlib \
     "nbconvert<6"\
     nbdev \
-    neptune-cli \
+    neptune-client \
     opencv-python \
     pandas \
     pillow \
