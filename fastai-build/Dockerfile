@@ -1,33 +1,34 @@
-FROM pytorch/pytorch
+# FROM pytorch/pytorch
+FROM fastai/fastai
 
 ARG BUILD=dev
 
-RUN apt-get update && apt-get install -y software-properties-common rsync
-RUN add-apt-repository -y ppa:git-core/ppa && apt-get update && apt-get install -y git libglib2.0-dev graphviz && apt-get update
-RUN pip install albumentations \
-    catalyst \
-    captum \
-    "fastprogress>=0.1.22" \
-    graphviz \
-    jupyter \
-    kornia \
-    matplotlib \
-    "nbconvert<6"\
-    nbdev \
-    neptune-client \
-    opencv-python \
-    pandas \
-    pillow \
-    pyarrow \
-    pydicom \
-    pyyaml \
-    scikit-learn \
-    scikit-image \
-    scipy \
-    "sentencepiece<0.1.90" \
-    spacy \
-    tensorboard \
-    wandb
+# RUN apt-get update && apt-get install -y software-properties-common rsync
+# RUN add-apt-repository -y ppa:git-core/ppa && apt-get update && apt-get install -y git libglib2.0-dev graphviz && apt-get update
+# RUN pip install albumentations \
+#     catalyst \
+#     captum \
+#     "fastprogress>=0.1.22" \
+#     graphviz \
+#     jupyter \
+#     kornia \
+#     matplotlib \
+#     "nbconvert<6"\
+#     nbdev \
+#     neptune-client \
+#     opencv-python \
+#     pandas \
+#     pillow \
+#     pyarrow \
+#     pydicom \
+#     pyyaml \
+#     scikit-learn \
+#     scikit-image \
+#     scipy \
+#     "sentencepiece<0.1.90" \
+#     spacy \
+#     tensorboard \
+#     wandb
 
 RUN git clone https://github.com/fastai/fastai.git --depth 1  && git clone https://github.com/fastai/fastcore.git --depth 1
 RUN /bin/bash -c "if [[ $BUILD == 'prod' ]] ; then echo \"Production Build\" && cd fastai && pip install . && cd ../fastcore && pip install .; fi"
