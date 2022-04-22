@@ -1,3 +1,4 @@
+python -m ensurepip --upgrade
 pip install -Uq nbdev watchdog[watchmedo] jupyter
 python -m ipykernel install
 apt install -y ruby-full
